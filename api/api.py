@@ -31,7 +31,16 @@ def get_food_banks(zip_code):
     c = r.content
     soup = BeautifulSoup(c, "html.parser")
     all = soup.find_all("div", {"class": "event-box"})
-    print(all[0])
+    l = []
+
+    for ele in all:
+        b = {}
+        b["Name"] = ele.find("h3").text
+        b["Address"] = " ".join(ele.find("p").text.strip().replace("\n", "").replace("\r", "").split()).split("Phone:")[0]
+        
+        l.append(b)
+
+    print(l)
 
 # @application.route('/', methods=['GET'])
 # def home():
@@ -47,4 +56,4 @@ def get_food_banks(zip_code):
 #     application.debug = True
 #     application.run(host='0.0.0.0', port=port)
 
-print(get_food_banks(95112))
+print(get_food_banks(35005))
