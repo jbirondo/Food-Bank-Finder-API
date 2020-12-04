@@ -14,12 +14,24 @@ import unicodedata
 # CORS(application, supports_credentials=True)
 
 def get_food_banks(zip_code):
-    r = requests.get("https://shfb.auntbertha.com/food/food-pantry--ca?postal={}&filters=%7B%22attribute_tags%22%3A+%5B%22anyone+in+need%22%5D%7D&clearedfilter=1&cursor=0&limit=10".format(zip_code), headers={
-        'User-agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0'})
+    headers = {
+        'authority': 'scrapeme.live',
+        'dnt': '1',
+        'upgrade-insecure-requests': '1',
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36',
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'sec-fetch-site': 'none',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-user': '?1',
+        'sec-fetch-dest': 'document',
+        'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
+    }
+
+    r = requests.get("https://www.freefood.org/zip.php?zip={}".format(zip_code), headers=headers)
     c = r.content
     soup = BeautifulSoup(c, "html.parser")
-    all = soup.find_all("div", {"class": "program-info-row"})
-    print(soup)
+    all = soup.find_all("div", {"class": "event-box"})
+    print(all[0])
 
 # @application.route('/', methods=['GET'])
 # def home():
