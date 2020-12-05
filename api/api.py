@@ -6,12 +6,12 @@ import flask
 import flask_cors
 from flask import request, jsonify, json
 from flask_cors import CORS
-import unicodedata
-import time
-import geopy
-from geopy.geocoders import Nominatim
-from geopy.adapters import AioHTTPAdapter
-from geopy.extra.rate_limiter import RateLimiter
+# import unicodedata
+# import time
+# import geopy
+# from geopy.geocoders import Nominatim
+# from geopy.adapters import AioHTTPAdapter
+# from geopy.extra.rate_limiter import RateLimiter
 
 application = flask.Flask(__name__)
 application.config["DEBUG"] = False
