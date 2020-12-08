@@ -1,6 +1,6 @@
 import React from 'react';
-import Places from './Components/places';
-import SearchBar from './Components/SearchBar';
+import Places from './places';
+import SearchBar from './SearchBar';
 
 export default class Homepage extends React.Component{
     constructor(props){
