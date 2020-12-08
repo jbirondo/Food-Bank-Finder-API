@@ -3,15 +3,8 @@ from bs4 import BeautifulSoup
 import requests
 import os
 import flask
-import flask_cors
-from flask import request, jsonify, json
+from flask import json
 from flask_cors import CORS
-# import unicodedata
-# import time
-# import geopy
-# from geopy.geocoders import Nominatim
-# from geopy.adapters import AioHTTPAdapter
-# from geopy.extra.rate_limiter import RateLimiter
 
 application = flask.Flask(__name__)
 application.config["DEBUG"] = False
@@ -43,10 +36,6 @@ def get_food_banks(zip_code):
         b["Address"] = " ".join(ele.find("p").text.strip().replace("\n", "").replace("\r", "").split()).split("Phone:")[0].strip()
         b["Phone"] = " ".join(ele.find("p").text.strip().replace("\n", "").replace("\r", "").split()).split("Phone:")[1].split("Fax:")[0].strip()
         b["Image"] = ele.find("img")['src']
-        # geolocator = Nominatim(user_agent="food_bank_api")
-        # location = [geolocator.geocode(b["Address"]).latitude, geolocator.geocode(b["Address"]).longitude]
-        # print(location)
-        # time.sleep(1)
         l.append(b)
 
     return l
