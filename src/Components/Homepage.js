@@ -1,5 +1,5 @@
 import React from 'react';
-import Places from './places';
+import Food_Banks from './food_banks';
 import SearchBar from './SearchBar';
 import Shelter from './shelter';
 
@@ -20,8 +20,11 @@ export default class Homepage extends React.Component{
         return(
             <div>
                 <SearchBar change_zip={this.zipcodeCallback}/>
-                <Places zipcode={this.state.zipcode}/>
-                <Shelter zipcode={this.state.zipcode}/>
+                <div>
+                    <Food_Banks zipcode={this.state.zipcode} />
+                    <Shelter zipcode={this.state.zipcode} />
+                </div>
+                
             </div>
         )
     }
