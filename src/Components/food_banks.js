@@ -9,7 +9,9 @@ export default class Places extends React.Component{
             return <li className="list-items">
                         <img alt="" src={obj["Image"]}></img>
                         <div className="item-info">
-                            <div>{obj["Name"]}</div>
+                            <a href={obj["Link"]}>
+                                <div>{obj["Name"]}</div>
+                            </a>
                             <div>{obj["Address"]}</div>
                             <div>{obj["Phone"]}</div>
                         </div>
