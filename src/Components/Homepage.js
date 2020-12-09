@@ -9,19 +9,40 @@ export default class Homepage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-          zipcode: 94586,
-          show_foodbanks: true,
-          show_shelters: true,
-          foodbanks: [],
-          shelters: [],
-          isLoading: true,
-          lng: -122.4193,
-          lat: 37.7607,
-          zoom: 2,
-        };
+            zipcode: null,
+            show_foodbanks: true,
+            show_shelters: true,
+            foodbanks: [],
+            shelters: [],
+            isLoading: true,
+        }
+
         this.zipcodeCallback = this.zipcodeCallback.bind(this);
         this.displayFoodbanks = this.displayFoodbanks.bind(this);
         this.displayShelters = this.displayShelters.bind(this);
+        this.fetchData = this.fetchData.bind(this)
+    }
+
+    componentDidMount() {
+        navigator.geolocation.getCurrentPosition((pos) => {
+            let lat = pos.coords.latitude
+            let long = pos.coords.longitude
+            
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://us1.locationiq.com/v1/reverse.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&lat=" + lat + "&lon=" + long + "&format=json",
+                "method": "GET"
+            }
+
+            $.ajax(settings).done(function (response) {
+                if(response){
+                    let zip = response.address.postcode
+                    localStorage.setItem("zip", zip)
+                }
+            });
+        })
+        this.fetchData(localStorage.getItem("zip"))
     }
 
     componentDidMount() {
@@ -177,6 +198,7 @@ export default class Homepage extends React.Component{
       //     "method": "GET"
       // }
 
+
       // $.ajax(settings).done(function (response) {
       //     console.log(response);
       // });
@@ -218,6 +240,7 @@ export default class Homepage extends React.Component{
                 id="shelter"
               />
               <label for="shelter">Shelter</label>
+
             </div>
             {/* <div>
               <div className="sidebarStyle">
