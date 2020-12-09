@@ -24,20 +24,29 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
+  <!-- <script src='https://tiles.locationiq.com/v2/streets/vector.json?key=pk.d0f854ee46b2834b4db26e99827dfe8b'></script> -->
+
     <title>React App</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <!-- <div id='map' style='width: 1000px; height: 700px;'></div>
+    <script>
+      // TO MAKE THE MAP APPEAR YOU MUST
+      // ADD YOUR ACCESS TOKEN FROM
+      // https://account.mapbox.com
+      mapboxgl.accessToken = 'pk.eyJ1IjoiYXBwaWFuY2hhbiIsImEiOiJja2lodmplNXYwcnF6MnlzNXZ4cm5mOWc3In0.Ca0C0KsE53d5rUyfcKw-BQ';
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'https://tiles.locationiq.com/v2/streets/vector.json?key=pk.d0f854ee46b2834b4db26e99827dfe8b', // stylesheet location
+        center: [-74.5, 40], // starting position [lng, lat]
+        zoom: 9 // starting zoom
+      });
+    </script> -->
   </body>
 </html>
