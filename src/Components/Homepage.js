@@ -8,7 +8,7 @@ export default class Homepage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            zipcode: 94586,
+            zipcode: null,
             show_foodbanks: true,
             show_shelters: true,
             foodbanks: [],
@@ -18,26 +18,30 @@ export default class Homepage extends React.Component{
         this.zipcodeCallback = this.zipcodeCallback.bind(this);
         this.displayFoodbanks = this.displayFoodbanks.bind(this);
         this.displayShelters = this.displayShelters.bind(this);
+        this.fetchData = this.fetchData.bind(this)
     }
 
     componentDidMount() {
-        this.fetchData(this.state.zipcode)
-        let lat
-        let long
         navigator.geolocation.getCurrentPosition((pos) => {
-            lat = pos.latitude
-            long = pos.longitude
-        })
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://us1.locationiq.com/v1/reverse.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&lat=" + lat + "&lon=" + long + "&format=json",
-            "method": "GET"
-        }
+            let lat = pos.coords.latitude
+            let long = pos.coords.longitude
+            
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://us1.locationiq.com/v1/reverse.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&lat=" + lat + "&lon=" + long + "&format=json",
+                "method": "GET"
+            }
 
-        $.ajax(settings).done(function (response) {
-            console.log(response);
-        });
+            $.ajax(settings).done(function (response) {
+                console.log(response.address.postcode);
+                if(response){
+                    let zip = response.address.postcode
+                    localStorage.setItem("zip", zip)
+                }
+            });
+        })
+        this.fetchData(localStorage.getItem("zip"))
     }
 
     zipcodeCallback(new_zipcode){
