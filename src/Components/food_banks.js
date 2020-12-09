@@ -19,7 +19,7 @@ export default class Places extends React.Component{
             <div style={{ visibility: this.props.show ? 'visible' : 'collapse' }}>
                 
                 <div>Food Banks</div>
-                <ul>{arr_list}</ul>
+                <ul className="list-container">{arr_list}</ul>
             </div>
             
         )
