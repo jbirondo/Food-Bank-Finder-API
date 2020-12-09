@@ -22,6 +22,18 @@ export default class Homepage extends React.Component{
 
     componentDidMount() {
         this.fetchData(this.state.zipcode)
+        navigator.geolocation.getCurrentPosition((pos) => {
+            console.log(pos)
+        })
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
+            "method": "GET"
+        }
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
     }
 
     zipcodeCallback(new_zipcode){
@@ -67,6 +79,7 @@ export default class Homepage extends React.Component{
                     foodbanks: res.food_banks,
                     shelters: res.shelters,
                     isLoading: false,
+                    zipcode: zipcode,
                 })
             })
         }).catch(function(err){
@@ -93,16 +106,16 @@ export default class Homepage extends React.Component{
 
 
     render(){
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
-            "method": "GET"
-        }
+        // var settings = {
+        //     "async": true,
+        //     "crossDomain": true,
+        //     "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
+        //     "method": "GET"
+        // }
 
-        $.ajax(settings).done(function (response) {
-            console.log(response);
-        });
+        // $.ajax(settings).done(function (response) {
+        //     console.log(response);
+        // });
 
         if(this.state.isLoading){
             return(
