@@ -20,9 +20,15 @@ export default class Homepage extends React.Component{
         return(
             <div>
                 <SearchBar change_zip={this.zipcodeCallback}/>
-                <div>
+                <div class="body">
                     <Food_Banks zipcode={this.state.zipcode} />
                     <Shelter zipcode={this.state.zipcode} />
+                    <div>
+                        <input type="checkbox" id="foodbank"/>
+                        <label for="foodbank">Foodbank</label>
+                        <input type="checkbox" id="shelter" />
+                        <label for="shelter">Shelter</label>
+                    </div>
                 </div>
                 
             </div>
