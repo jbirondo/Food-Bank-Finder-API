@@ -20,7 +20,11 @@ export default class Homepage extends React.Component{
     }
 
     zipcodeCallback(new_zipcode){
-        this.setState({zipcode: new_zipcode})
+        this.setState({
+            zipcode: new_zipcode,
+            isLoading: true
+        })
+        this.fetchData(new_zipcode)
     }
     displayShelters(){
         if(this.state.show_shelters === true){

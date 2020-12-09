@@ -2,15 +2,11 @@ import React from 'react';
 import './food_banks.css'
 
 export default class Shelter extends React.Component{
-    constructor(props){
-        super(props);
-    }
-
     render(){
         const arr = this.props.shelters;
         const arr_list = arr.map(function (obj) {
             return <li className="list-items">
-                        <img src={obj["Image"]}></img>
+                        <img alt="" src={obj["Image"]}></img>
                         <div className="item-info">
                             <div>{obj["Name"]}</div>
                             <div>{obj["Address"]}</div>
