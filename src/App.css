@@ -19,7 +19,10 @@
 
 .body{
   display: flex;
-  
+
+}
+.checkmarks{
+  display: flex;
 }
 
 /* .App-header {

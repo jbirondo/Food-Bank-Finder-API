@@ -21,7 +21,7 @@ export default class Shelter extends React.Component{
 
         })
         return (
-            <div>
+            <div style={{ visibility: this.props.show ? 'visible' : 'collapse' }}>
 
                 <div>Shelters</div>
                 <ul>{arr_list}</ul>
