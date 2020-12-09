@@ -36,6 +36,7 @@ def get_food_banks(zip_code):
         b["Address"] = " ".join(ele.find("p").text.strip().replace("\n", "").replace("\r", "").split()).split("Phone:")[0].strip()
         b["Phone"] = " ".join(ele.find("p").text.strip().replace("\n", "").replace("\r", "").split()).split("Phone:")[1].split("Fax:")[0].strip()
         b["Image"] = ele.find("img")['src']
+        b["Link"] = ele.find("a")["href"]
         l.append(b)
     return l
 
@@ -66,6 +67,7 @@ def get_shelters(zip_code):
         s["Address"] = x.parent.find("div", {"class": "street"}).text.strip() + " " + x.parent.find("div", {"class": "cityState"}).text.strip()
         s["Phone"] = x.parent.find("div", {"class": "phone"}).text.strip()
         s["Image"] = x.parent.find("img")["src"]
+        s["Link"] = x.parent.find("a")["href"]
         l.append(s)
     return l
 
