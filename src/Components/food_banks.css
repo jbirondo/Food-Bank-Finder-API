@@ -11,7 +11,7 @@ body{
 }
 
 .list-container{
-    height: 80%;
+    height: 60%;
     overflow: hidden;
     overflow-y: scroll;
 }
