@@ -2,6 +2,7 @@ import React from 'react';
 import Food_Banks from './food_banks';
 import SearchBar from './SearchBar';
 import Shelter from './shelter';
+import $ from 'jquery'
 
 export default class Homepage extends React.Component{
     constructor(props){
@@ -17,6 +18,22 @@ export default class Homepage extends React.Component{
         this.zipcodeCallback = this.zipcodeCallback.bind(this);
         this.displayFoodbanks = this.displayFoodbanks.bind(this);
         this.displayShelters = this.displayShelters.bind(this);
+    }
+
+    componentDidMount() {
+        this.fetchData(this.state.zipcode)
+        navigator.geolocation.getCurrentPosition((pos) => {
+            console.log(pos)
+        })
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
+            "method": "GET"
+        }
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
     }
 
     zipcodeCallback(new_zipcode){
@@ -42,10 +59,6 @@ export default class Homepage extends React.Component{
         }
     }
 
-    componentDidMount() {
-        this.fetchData(this.state.zipcode)
-    }
-
     fetchData(zipcode){
         let headers = new Headers();
 
@@ -66,6 +79,7 @@ export default class Homepage extends React.Component{
                     foodbanks: res.food_banks,
                     shelters: res.shelters,
                     isLoading: false,
+                    zipcode: zipcode,
                 })
             })
         }).catch(function(err){
@@ -73,7 +87,6 @@ export default class Homepage extends React.Component{
                 fetchError: err,
             })
         })
-        console.log(this.state.shelters)
     }
 
     // changeZipCode(event){
@@ -93,6 +106,17 @@ export default class Homepage extends React.Component{
 
 
     render(){
+        // var settings = {
+        //     "async": true,
+        //     "crossDomain": true,
+        //     "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
+        //     "method": "GET"
+        // }
+
+        // $.ajax(settings).done(function (response) {
+        //     console.log(response);
+        // });
+
         if(this.state.isLoading){
             return(
                 <div>Loading...</div>
