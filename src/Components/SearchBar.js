@@ -50,7 +50,7 @@ export default class SearchBar extends React.Component{
         return(
             <div>
                 <div>
-                    <div>Current zipCode = {this.state.prev_zipcode}</div>
+                    <div>Current zipCode = {this.props.zip}</div>
                     {/* <div>State zip: {this.state.zipcode}, {this.state.type}</div> */}
                     <div>
                         <input value={this.state.zipcode} onChange={this.changeZipCode} type="text" name="zipcode" />
