@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import Places from './Components/places'
+import HomePage from './Components/Homepage';
+
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
       <header className="Title">
         Food Bank Finder
       </header>
-      <Places />
+      <HomePage />
     </div>
   );
 }
