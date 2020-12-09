@@ -43,6 +43,22 @@ export default class Homepage extends React.Component{
         this.fetchData(localStorage.getItem("zip"))
     }
 
+    componentDidMount() {
+        this.fetchData(this.state.zipcode)
+        navigator.geolocation.getCurrentPosition((pos) => {
+            console.log(pos)
+        })
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
+            "method": "GET"
+        }
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+    }
+
     zipcodeCallback(new_zipcode){
         this.setState({
             zipcode: new_zipcode,
@@ -113,6 +129,17 @@ export default class Homepage extends React.Component{
 
 
     render(){
+        // var settings = {
+        //     "async": true,
+        //     "crossDomain": true,
+        //     "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
+        //     "method": "GET"
+        // }
+
+        // $.ajax(settings).done(function (response) {
+        //     console.log(response);
+        // });
+
         if(this.state.isLoading){
             return(
                 <div>Loading...</div>
