@@ -8,7 +8,7 @@ export default class Homepage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            zipcode: 94586,
+            zipcode: null,
             show_foodbanks: true,
             show_shelters: true,
             foodbanks: [],
@@ -18,6 +18,29 @@ export default class Homepage extends React.Component{
         this.zipcodeCallback = this.zipcodeCallback.bind(this);
         this.displayFoodbanks = this.displayFoodbanks.bind(this);
         this.displayShelters = this.displayShelters.bind(this);
+        this.fetchData = this.fetchData.bind(this)
+    }
+
+    componentDidMount() {
+        navigator.geolocation.getCurrentPosition((pos) => {
+            let lat = pos.coords.latitude
+            let long = pos.coords.longitude
+            
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://us1.locationiq.com/v1/reverse.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&lat=" + lat + "&lon=" + long + "&format=json",
+                "method": "GET"
+            }
+
+            $.ajax(settings).done(function (response) {
+                if(response){
+                    let zip = response.address.postcode
+                    localStorage.setItem("zip", zip)
+                }
+            });
+        })
+        this.fetchData(localStorage.getItem("zip"))
     }
 
     componentDidMount() {
@@ -122,18 +145,17 @@ export default class Homepage extends React.Component{
                 <div>Loading...</div>
             )
         }
-        console.log(this.state.foodbanks)
         return(
             <div>
-                <SearchBar change_zip={this.zipcodeCallback}/>
-                <div class="body">
+                <SearchBar zip={this.state.zipcode} change_zip={this.zipcodeCallback}/>
+                <div className="body">
                     <Food_Banks show={this.state.show_foodbanks} zipcode={this.state.zipcode} foodbanks={this.state.foodbanks}/>
                     <Shelter show={this.state.show_shelters} zipcode={this.state.zipcode} shelters={this.state.shelters}/>
-                    <div class="checkmarks">
+                    <div className="checkmarks">
                         <input onClick={this.displayFoodbanks} type="checkbox" id="foodbank" />
-                        <label for="foodbank">Foodbank</label>
+                        <label htmlFor="foodbank">Foodbank</label>
                         <input onClick={this.displayShelters} type="checkbox" id="shelter" />
-                        <label for="shelter">Shelter</label>
+                        <label htmlFor="shelter">Shelter</label>
                     </div>
                 </div>
                 
