@@ -12,7 +12,7 @@ export default class Homepage extends React.Component{
             show_shelters: true,
             foodbanks: [],
             shelters: [],
-            isLoading: false,
+            isLoading: true,
         }
         this.zipcodeCallback = this.zipcodeCallback.bind(this);
         this.displayFoodbanks = this.displayFoodbanks.bind(this);
@@ -62,7 +62,6 @@ export default class Homepage extends React.Component{
                     foodbanks: res.food_banks,
                     shelters: res.shelters,
                     isLoading: false,
-                    isLoading: false,
                 })
             })
         }).catch(function(err){
@@ -95,7 +94,7 @@ export default class Homepage extends React.Component{
                 <div>Loading...</div>
             )
         }
-        console.log(this.state.shelters)
+        console.log(this.state.foodbanks)
         return(
             <div>
                 <SearchBar change_zip={this.zipcodeCallback}/>
