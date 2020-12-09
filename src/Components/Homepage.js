@@ -106,38 +106,59 @@ export default class Homepage extends React.Component{
 
 
     render(){
-        // var settings = {
-        //     "async": true,
-        //     "crossDomain": true,
-        //     "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
-        //     "method": "GET"
-        // }
+      // var settings = {
+      //     "async": true,
+      //     "crossDomain": true,
+      //     "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
+      //     "method": "GET"
+      // }
 
-        // $.ajax(settings).done(function (response) {
-        //     console.log(response);
-        // });
+      // $.ajax(settings).done(function (response) {
+      //     console.log(response);
+      // });
 
-        if(this.state.isLoading){
-            return(
-                <div>Loading...</div>
-            )
-        }
-        console.log(this.state.foodbanks)
-        return(
-            <div>
-                <SearchBar change_zip={this.zipcodeCallback}/>
-                <div class="body">
-                    <Food_Banks show={this.state.show_foodbanks} zipcode={this.state.zipcode} foodbanks={this.state.foodbanks}/>
-                    <Shelter show={this.state.show_shelters} zipcode={this.state.zipcode} shelters={this.state.shelters}/>
-                    <div class="checkmarks">
-                        <input onClick={this.displayFoodbanks} type="checkbox" id="foodbank" />
-                        <label for="foodbank">Foodbank</label>
-                        <input onClick={this.displayShelters} type="checkbox" id="shelter" />
-                        <label for="shelter">Shelter</label>
-                    </div>
-                </div>
-                
+      //Map here
+      
+      
+
+      //Map end here
+
+      if (this.state.isLoading) {
+        return <div>Loading...</div>;
+      }
+      console.log(this.state.foodbanks);
+      return (
+        <div>
+          <SearchBar change_zip={this.zipcodeCallback} />
+          <div class="body">
+            <Food_Banks
+              show={this.state.show_foodbanks}
+              zipcode={this.state.zipcode}
+              foodbanks={this.state.foodbanks}
+            />
+            <Shelter
+              show={this.state.show_shelters}
+              zipcode={this.state.zipcode}
+              shelters={this.state.shelters}
+            />
+            <div class="checkmarks">
+              <input
+                onClick={this.displayFoodbanks}
+                type="checkbox"
+                id="foodbank"
+              />
+              <label for="foodbank">Foodbank</label>
+              <input
+                onClick={this.displayShelters}
+                type="checkbox"
+                id="shelter"
+              />
+              <label for="shelter">Shelter</label>
             </div>
-        )
+            <div id="map"></div>
+            {/* <Map /> */}
+          </div>
+        </div>
+      );
     }
 }
