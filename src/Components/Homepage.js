@@ -2,7 +2,7 @@ import React from 'react';
 import Food_Banks from './food_banks';
 import SearchBar from './SearchBar';
 import Shelter from './shelter';
-import $ from 'jquery'
+import $ from 'jquery';
 
 export default class Homepage extends React.Component{
     constructor(props){
