@@ -20,7 +20,6 @@ export default class Shelter extends React.Component{
 
 
         })
-        console.log(arr)
         return (
             <div style={{ visibility: this.props.show ? 'visible' : 'collapse' }}>
 

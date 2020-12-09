@@ -25,7 +25,6 @@ export default class Places extends React.Component{
 
 
         })
-        console.log(arr)
         return(
             <div style={{ visibility: this.props.show ? 'visible' : 'collapse' }}>
                 
