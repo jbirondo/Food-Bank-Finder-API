@@ -214,8 +214,8 @@ export default class Homepage extends React.Component{
                 "method": "GET"
             }
             $.ajax(settings).done(function (response) {
-                obj["lat"] = $(response).contents().children()[0].attributes[5].value
-                obj["long"] = $(response).contents().children()[0].attributes[6].value
+                obj["Latitude"] = $(response).contents().children()[0].attributes[5].value
+                obj["Longitude"] = $(response).contents().children()[0].attributes[6].value
             });
     }
 
