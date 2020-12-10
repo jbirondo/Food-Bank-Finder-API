@@ -4,6 +4,7 @@ import SearchBar from './SearchBar';
 import Shelter from './shelter';
 import $ from 'jquery';
 import mapboxgl from "mapbox-gl";
+import { getDefaultNormalizer } from '@testing-library/react';
 
 export default class Homepage extends React.Component{
     constructor(props){
@@ -43,6 +44,8 @@ export default class Homepage extends React.Component{
             });
         })
         this.fetchData(localStorage.getItem("zip"))
+        this.generateCoords(this.state.foodbanks)
+        this.generateCoords(this.state.shelters)
     }
 
     // componentDidMount() {
@@ -191,8 +194,16 @@ export default class Homepage extends React.Component{
     // }
 
     generateCoords(array){
-        for(let i = 0; i < array.length; i++){
-        }
+        let counter = 0
+        let gen = setInterval(() => {
+            if(counter < array.length){
+                this.coords(array[counter])
+                counter++
+            } else {
+                clearInterval(gen)
+                counter = 0
+            }
+        }, 1000)
     }
 
     coords(obj){
@@ -203,7 +214,8 @@ export default class Homepage extends React.Component{
                 "method": "GET"
             }
             $.ajax(settings).done(function (response) {
-                console.log(response);
+                obj["lat"] = $(response).contents().children()[0].attributes[5].value
+                obj["long"] = $(response).contents().children()[0].attributes[6].value
             });
     }
 
@@ -234,7 +246,6 @@ export default class Homepage extends React.Component{
       if (this.state.isLoading) {
         return <div>Loading...</div>;
       }
-      console.log(this.state.foodbanks);
       return (
         <div>
           <SearchBar change_zip={this.zipcodeCallback} />
