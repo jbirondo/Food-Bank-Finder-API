@@ -189,6 +189,27 @@ export default class Homepage extends React.Component{
     //     this.fetchData(this.state.zipcode)
     // }
 
+    generateCoords(array){
+        for(let i = 0; i < array.length; i++){
+        }
+    }
+
+    coords(obj){
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=" + this.modAddress(obj["Address"]),
+                "method": "GET"
+            }
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            });
+    }
+
+    modAddress(string){
+        return string.split(" ").join("%20")
+    }
+
 
     render(){
       // var settings = {
