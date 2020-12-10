@@ -45,20 +45,20 @@ export default class Homepage extends React.Component{
         this.fetchData(localStorage.getItem("zip"))
     }
 
-    componentDidMount() {
-        this.fetchData(this.state.zipcode);
-        navigator.geolocation.getCurrentPosition((pos) => {
-            console.log(pos)
-        })
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
-            "method": "GET"
-        }
-        $.ajax(settings).done(function (response) {
-            console.log(response);
-        });
+    // componentDidMount() {
+    //     this.fetchData(this.state.zipcode);
+    //     navigator.geolocation.getCurrentPosition((pos) => {
+    //         console.log(pos)
+    //     })
+    //     var settings = {
+    //         "async": true,
+    //         "crossDomain": true,
+    //         "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
+    //         "method": "GET"
+    //     }
+    //     $.ajax(settings).done(function (response) {
+    //         console.log(response);
+    //     });
 
        
 
@@ -116,7 +116,8 @@ export default class Homepage extends React.Component{
         //     )
         //     .addTo(map);
         // });
-    }
+    // }
+
     renderMap(){
         
     }
@@ -188,6 +189,27 @@ export default class Homepage extends React.Component{
     //     })
     //     this.fetchData(this.state.zipcode)
     // }
+
+    generateCoords(array){
+        for(let i = 0; i < array.length; i++){
+        }
+    }
+
+    coords(obj){
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=" + this.modAddress(obj["Address"]),
+                "method": "GET"
+            }
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            });
+    }
+
+    modAddress(string){
+        return string.split(" ").join("%20")
+    }
 
 
     render(){
