@@ -6,7 +6,7 @@ export default class Places extends React.Component{
     render(){
         const arr = this.props.foodbanks;
         const arr_list = arr.map(function (obj) {
-            return <li className="list-items">
+            return <li className="list-items" key={obj["Phone"]}>
                         <img alt="" src={obj["Image"]}></img>
                         <div className="item-info">
                             <a href={obj["Link"]}>
