@@ -30,7 +30,6 @@ export default class Homepage extends React.Component{
         await navigator.geolocation.getCurrentPosition((pos) => {
             let lat = pos.coords.latitude
             let long = pos.coords.longitude
-            
             var settings = {
                 "async": true,
                 "crossDomain": true,
@@ -133,7 +132,7 @@ export default class Homepage extends React.Component{
                 clearInterval(gen)
                 counter = 0
             }
-        }, 1500)
+        }, 1000)
     }
 
     coords(obj){
@@ -191,25 +190,16 @@ export default class Homepage extends React.Component{
               zipcode={this.state.zipcode}
               foodbanks={this.state.foodbanks}
             />
-            <Shelter
-              show={this.state.show_shelters}
-              zipcode={this.state.zipcode}
-              shelters={this.state.shelters}
-            />
             <Map 
                 initialCoords={this.state.initialCoords}
                 foodbanks={this.state.foodbanks}
                 shelters={this.state.shelters}
             />
-            {/* <div>
-              <div className="sidebarStyle">
-                <div>
-                  Longitude: {this.state.lng} | Latitude: {this.state.lat} |
-                  Zoom: {this.state.zoom}
-                </div>
-              </div>
-              <div ref={this.mapContainer} className="mapContainer" />
-            </div> */}
+            <Shelter
+              show={this.state.show_shelters}
+              zipcode={this.state.zipcode}
+              shelters={this.state.shelters}
+            />
           </div>
         </div>
       );

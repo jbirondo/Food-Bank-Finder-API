@@ -78,44 +78,11 @@ export default class Map extends React.Component {
       zoom: this.state.zoom,
       interactive: false,
     });
-
-    // var geojson = {
-    //   type: "FeatureCollection",
-    //   features: [
-    //     {
-    //       type: "Feature",
-    //       geometry: {
-    //         type: "Point",
-    //         coordinates: [-77.032, 38.913],
-    //       },
-    //       properties: {
-    //         title: "Mapbox",
-    //         description: "Washington, D.C.",
-    //       },
-    //     },
-    //     {
-    //       type: "Feature",
-    //       geometry: {
-    //         type: "Point",
-    //         coordinates: [-122.414, 37.776],
-    //       },
-    //       properties: {
-    //         title: "Mapbox",
-    //         description: "San Francisco, California",
-    //       },
-    //     },
-    //   ],
-    // };
-    // console.log(this.createGeoJSON(this.props.foodbanks))
     this.createGeoJSON(this.props.foodbanks).features.forEach(function (marker) {
-    // geojson.features.forEach(function (marker) {
-      // create a HTML element for each feature
-
-      // make a marker for each feature and add to the map
       new mapboxgl.Marker()
         .setLngLat(marker.geometry.coordinates)
         .setPopup(
-          new mapboxgl.Popup({ offset: 25 }) // add popups
+          new mapboxgl.Popup({ offset: 25 })
             .setHTML(
               "<h3>" +
                 marker.properties.title +
@@ -127,16 +94,12 @@ export default class Map extends React.Component {
         .addTo(map);
     });
     this.createGeoJSON(this.props.shelters).features.forEach(function (marker) {
-    // geojson.features.forEach(function (marker) {
-      // create a HTML element for each feature
-
-      // make a marker for each feature and add to the map
       new mapboxgl.Marker({
           color: "#FF0000 "
       })
         .setLngLat(marker.geometry.coordinates)
         .setPopup(
-          new mapboxgl.Popup({ offset: 25 }) // add popups
+          new mapboxgl.Popup({ offset: 25 })
             .setHTML(
               "<h3>" +
                 marker.properties.title +
