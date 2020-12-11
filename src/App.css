@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  overflow: hidden;
 }
 
 .App-logo {
@@ -31,8 +32,8 @@ top: 0;
 right: 0;
 left: 0;
 bottom: 0;
-width: 1500px;
-height: 1500px;
+width: 600px;
+height: 600px;
 }
 
 .sidebarStyle {
