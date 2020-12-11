@@ -196,7 +196,11 @@ export default class Homepage extends React.Component{
               zipcode={this.state.zipcode}
               shelters={this.state.shelters}
             />
-            <Map initialCoords={this.state.initialCoords}/>
+            <Map 
+                initialCoords={this.state.initialCoords}
+                foodbanks={this.state.foodbanks}
+                shelters={this.state.shelters}
+            />
             {/* <div>
               <div className="sidebarStyle">
                 <div>
