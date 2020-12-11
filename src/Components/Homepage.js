@@ -3,6 +3,7 @@ import Food_Banks from './food_banks';
 import SearchBar from './SearchBar';
 import Shelter from './shelter';
 import $ from 'jquery';
+import Map from './Map'
 import mapboxgl from "mapbox-gl";
 import { getDefaultNormalizer } from '@testing-library/react';
 
@@ -16,6 +17,7 @@ export default class Homepage extends React.Component{
             foodbanks: [],
             shelters: [],
             isLoading: true,
+            initialCoords: [-122.4193, 37.7607]
         }
 
         this.zipcodeCallback = this.zipcodeCallback.bind(this);
@@ -24,11 +26,10 @@ export default class Homepage extends React.Component{
         this.fetchData = this.fetchData.bind(this)
     }
 
-    componentDidMount() {
-        navigator.geolocation.getCurrentPosition((pos) => {
+    async componentDidMount() {
+        await navigator.geolocation.getCurrentPosition((pos) => {
             let lat = pos.coords.latitude
             let long = pos.coords.longitude
-            
             var settings = {
                 "async": true,
                 "crossDomain": true,
@@ -42,87 +43,13 @@ export default class Homepage extends React.Component{
                     localStorage.setItem("zip", zip)
                 }
             });
+
+            this.setState({
+                initialCoords: [long, lat]
+            })
+
         })
-        this.fetchData(localStorage.getItem("zip"))
-        this.generateCoords(this.state.foodbanks)
-        this.generateCoords(this.state.shelters)
-    }
-
-    // componentDidMount() {
-    //     this.fetchData(this.state.zipcode);
-    //     navigator.geolocation.getCurrentPosition((pos) => {
-    //         console.log(pos)
-    //     })
-    //     var settings = {
-    //         "async": true,
-    //         "crossDomain": true,
-    //         "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
-    //         "method": "GET"
-    //     }
-    //     $.ajax(settings).done(function (response) {
-    //         console.log(response);
-    //     });
-
-       
-
-        //map stuff beings
-        // const map = new mapboxgl.Map({
-        //   container: this.mapContainer,
-        //   style: "mapbox://styles/mapbox/streets-v11",
-        //   center: [this.state.lng, this.state.lat],
-        //   zoom: this.state.zoom,
-        //   interactive: false,
-        // });
-
-        // var geojson = {
-        //   type: "FeatureCollection",
-        //   features: [
-        //     {
-        //       type: "Feature",
-        //       geometry: {
-        //         type: "Point",
-        //         coordinates: [-77.032, 38.913],
-        //       },
-        //       properties: {
-        //         title: "Mapbox",
-        //         description: "Washington, D.C.",
-        //       },
-        //     },
-        //     {
-        //       type: "Feature",
-        //       geometry: {
-        //         type: "Point",
-        //         coordinates: [-122.414, 37.776],
-        //       },
-        //       properties: {
-        //         title: "Mapbox",
-        //         description: "San Francisco, California",
-        //       },
-        //     },
-        //   ],
-        // };
-        // geojson.features.forEach(function (marker) {
-        //   // create a HTML element for each feature
-
-        //   // make a marker for each feature and add to the map
-        //   new mapboxgl.Marker()
-        //     .setLngLat(marker.geometry.coordinates)
-        //     .setPopup(
-        //       new mapboxgl.Popup({ offset: 25 }) // add popups
-        //         .setHTML(
-        //           "<h3>" +
-        //             marker.properties.title +
-        //             "</h3><p>" +
-        //             marker.properties.description +
-        //             "</p>"
-        //         )
-        //     )
-        //     .addTo(map);
-        // });
-    // }
-
-    renderMap(){
-        
+        await this.fetchData(localStorage.getItem("zip"))
     }
 
     zipcodeCallback(new_zipcode){
@@ -138,6 +65,8 @@ export default class Homepage extends React.Component{
         }else{
             this.setState({show_shelters: true })
         }
+        console.log(this.state.foodbanks[0])
+        console.log(this.state.shelters[0])
     }
 
     displayFoodbanks(){
@@ -225,41 +154,21 @@ export default class Homepage extends React.Component{
 
 
     render(){
-      // var settings = {
-      //     "async": true,
-      //     "crossDomain": true,
-      //     "url": "https://us1.locationiq.com/v1/search.php?key=pk.d0f854ee46b2834b4db26e99827dfe8b&q=Empire%20State%20Building&format=json",
-      //     "method": "GET"
-      // }
-
-
-      // $.ajax(settings).done(function (response) {
-      //     console.log(response);
-      // });
-
       //Map here
       
       
 
       //Map end here
 
-      if (this.state.isLoading) {
-        return <div>Loading...</div>;
-      }
-      return (
+        if (this.state.isLoading) {
+            return <div>Loading...</div>;
+        } else {
+            this.generateCoords(this.state.foodbanks)
+            this.generateCoords(this.state.shelters)
+        }
+        return (
         <div>
-          <SearchBar change_zip={this.zipcodeCallback} />
-          <div class="body">
-            <Food_Banks
-              show={this.state.show_foodbanks}
-              zipcode={this.state.zipcode}
-              foodbanks={this.state.foodbanks}
-            />
-            <Shelter
-              show={this.state.show_shelters}
-              zipcode={this.state.zipcode}
-              shelters={this.state.shelters}
-            />
+          <SearchBar zip={this.state.zipcode} change_zip={this.zipcodeCallback} />
             <div class="checkmarks">
               <input
                 onClick={this.displayFoodbanks}
@@ -275,15 +184,22 @@ export default class Homepage extends React.Component{
               <label for="shelter">Shelter</label>
 
             </div>
-            {/* <div>
-              <div className="sidebarStyle">
-                <div>
-                  Longitude: {this.state.lng} | Latitude: {this.state.lat} |
-                  Zoom: {this.state.zoom}
-                </div>
-              </div>
-              <div ref={this.mapContainer} className="mapContainer" />
-            </div> */}
+          <div class="body">
+            <Food_Banks
+              show={this.state.show_foodbanks}
+              zipcode={this.state.zipcode}
+              foodbanks={this.state.foodbanks}
+            />
+            <Map 
+                initialCoords={this.state.initialCoords}
+                foodbanks={this.state.foodbanks}
+                shelters={this.state.shelters}
+            />
+            <Shelter
+              show={this.state.show_shelters}
+              zipcode={this.state.zipcode}
+              shelters={this.state.shelters}
+            />
           </div>
         </div>
       );
